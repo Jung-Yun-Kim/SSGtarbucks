@@ -9,6 +9,6 @@
 </c:if>
 <c:if test="${!empty login}">
 	<a href="LogoutServlet">로그아웃</a>
-	<a href="">mypage</a>
+	<a href="MypageServlet">mypage</a>
 	<a href="CartListServlet">장바구니</a>
 </c:if>

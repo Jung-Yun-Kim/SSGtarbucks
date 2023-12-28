@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
 <script>
-   $(document).ready(function(){
+$(document).ready(function(){
 	   // 비번일치 여부 확인
 	   $("#passwd2").on("keyup", function(){
 		    var passwd = $("#passwd").val();
@@ -15,67 +15,46 @@
 		    $("#idcheck").text(mesg);
 	   });
 	   
-	   // id 중복체크
-	   $("#idDupulicatedcheck").on("click",function(){
-		   //자동 submit 방지
-		   event.preventDefault();
-		   //ajax()
-		   $.ajax({
-				type : 'get',
-				url : "MemberIdCheckServlet",
-				dataType : "text", // json, xml, text
-				data:{ userid: $("#userid").val()},
-				success : function(data, status, xhr) {
-					console.log(data);
-					//아이디 중복 체크 결과 삽입
-					$("#result").text(data);
-				},
-				error : function(xhr, status, error) {
-					console.log("Error:", error);
-				}
-			});//end ajax
-
-	   });
-	   
+	   //이메일 담기
 	   $("#email22").on("change", function(){
+		    $("#email2").val("");
 		    var email2 = $("#email22").val();
 		    $("#email2").val(email2);
 	   });
 
-   });
+});
 </script>
-<form action="MemberAddServlet" method="post">
-*아이디:<input type="text" name="userid" id="userid">
-<button id="idDupulicatedcheck">중복확인</button><span id="result"></span><br>
-<!-- 중복확인 + 서브밋 방지 필요 -->
-*비밀번호:<input type="text" name="passwd" id="passwd"><br>
-비밀번호확인:<input type="text" name="passwd2" id="passwd2"><span id="idcheck"></span><br>
-이름:<input type="text" name="username"><br>
-<!-- kakao address API -->
-<input type="text" name="post" id="sample4_postcode" placeholder="우편번호">
-<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
-<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
-<span id="guide" style="color:#999"></span>
-<br>
-<!-- kakao address API -->
-전화번호:
-<select name="phone1">
- <option value="010">010</option>
- <option value="011">011</option>
-</select>-
-<input type="text" name="phone2">-
-<input type="text" name="phone3"><br>
-이메일:
-<input type="text" name="email1">@<input type="text" name="email2" id="email2" placeholder="직접입력">
-<select id="email22" >
- <option value="daum.net">daum.net</option>
- <option value="google.com">google.com</option>
- <option value="naver.com">naver.com</option>
-</select>
-<br>
-<input type="submit" value="회원가입">
-<input type="reset" value="취소">
+<form action="MemberModifyServlet" method="post">
+	*아이디: ${loginDTO.userid}<br>
+	<input type="hidden" name="userid" id="userid" value="${loginDTO.userid}">
+	*비밀번호:<input type="text" name="passwd" id="passwd"><br>
+	*비밀번호확인:<input type="text" name="passwd2" id="passwd2"><span id="idcheck"></span><br>
+	*이름:<input type="text" name="username"  value="${loginDTO.username }"><br>
+	<!-- kakao address API -->
+	<input type="text" name="post" id="sample4_postcode" placeholder="우편번호"  value="${loginDTO.post }">
+	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+	<input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소" value="${loginDTO.addr1 }">
+	<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소" value="${loginDTO.addr2 }">
+	<span id="guide" style="color:#999"></span>
+	<br>
+	<!-- kakao address API -->
+	전화번호:
+	<select name="phone1">
+	 <option value="010">010</option>
+	 <option value="011">011</option>
+	</select>-
+	<input type="text" name="phone2" value="${loginDTO.phone2 }">-
+	<input type="text" name="phone3" value="${loginDTO.phone3 }"><br>
+	이메일:
+	<input type="text" name="email1" value="${loginDTO.email1 }">@<input type="text" name="email2" id="email2" placeholder="직접입력" value="${loginDTO.email2 }">
+	<select id="email22" name="email22"> 
+	 <option value="daum.net">daum.net</option>
+	 <option value="google.com">google.com</option>
+	 <option value="naver.com">naver.com</option>
+	</select>
+	<br>
+	<input type="submit" value="수정">
+	<input type="reset" value="취소">
 </form>
 
 

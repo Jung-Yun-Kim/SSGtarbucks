@@ -24,4 +24,8 @@ public class MemberDAO {
 	public MemberDTO login(HashMap<String, String> map) {
 		return session.selectOne("MemberMapper.login",map);
 	}
+	
+	public int updateMember(MemberDTO dto) {
+		return session.update("MemberMapper.updateMember",dto);
+	}
 }

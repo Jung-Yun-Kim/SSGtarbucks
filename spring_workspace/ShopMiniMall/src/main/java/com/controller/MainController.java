@@ -2,6 +2,8 @@ package com.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +22,15 @@ public class MainController {
 	@GetMapping("/main")
 	public String main(@RequestParam(required = false, defaultValue="top") String gCategory
 						,Model m){
-		//RequestParam 없으면 400에러 발생
-		//RequestParam(required=true)가 기본값이므로 false를 주거나 초기값주거나 하면 됨
+		//RequestParam �뾾�쑝硫� 400�뿉�윭 諛쒖깮
+		//RequestParam(required=true)媛� 湲곕낯媛믪씠誘�濡� false瑜� 二쇨굅�굹 珥덇린媛믪＜嫄곕굹 �븯硫� �맖
 		
-		//Goods 테이블 데이터 카테고리별로 검색
+		//Goods �뀒�씠釉� �뜲�씠�꽣 移댄뀒怨좊━蹂꾨줈 寃��깋
 		List<GoodsDTO> list = gService.goodsList(gCategory);
-		m.addAttribute("goodsList",list); //기본값 requestScope -> main.jsp와 goodslist.jsp 둘 다 이용가능
+		m.addAttribute("goodsList",list); //湲곕낯媛� requestScope -> main.jsp�� goodslist.jsp �몮 �떎 �씠�슜媛��뒫
 		
 		return "main"; //WEB-INF/views/main.jsp
 	}
+	
+
 }

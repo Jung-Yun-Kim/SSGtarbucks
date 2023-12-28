@@ -10,4 +10,6 @@ public interface MemberService {
 	public int memberAdd(MemberDTO dto);
 	
 	public MemberDTO login(HashMap<String, String> map);
+	
+	public int updateMember(MemberDTO dto);
 }

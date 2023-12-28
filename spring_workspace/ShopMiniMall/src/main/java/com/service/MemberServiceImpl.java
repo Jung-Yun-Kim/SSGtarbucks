@@ -29,4 +29,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login(map);
 	}
 
+	@Override
+	public int updateMember(MemberDTO dto) {
+		return dao.updateMember(dto);
+	}
+
 }

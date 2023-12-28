@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,34 +19,35 @@ public class LoginController {
 	@Autowired
 	MemberService mService;
 
-	//로그인 화면보기
+	//濡쒓렇�씤 �솕硫대낫湲�
 	@GetMapping("/LoginUIServlet")
 	public String loginUI() {
 		return "loginForm";
 	}
 	
-	//로그인
+	//濡쒓렇�씤
 	@GetMapping("/LoginServlet")
 	public String login(@RequestParam HashMap<String, String> map, HttpSession session) {
 		
 		MemberDTO dto = mService.login(map);
 		String nextPage = null;
 		if(dto !=null) {
-			//세션저장
+			//�꽭�뀡���옣
 			session.setAttribute("login", dto);
 			nextPage = "redirect:main";
 		}else {
-			// id와 pw 틀린 경우로서 다시 로그인하도록 처리
+			// id�� pw ��由� 寃쎌슦濡쒖꽌 �떎�떆 濡쒓렇�씤�븯�룄濡� 泥섎━
 			nextPage ="member/loginFail";
 		}
 		return nextPage;
 	}
 	
-	//로그아웃
+	//濡쒓렇�븘�썐
 	@GetMapping("/LogoutServlet")
 	public String logout(HttpSession session) {
-		//로그인 여부 확인 => HandlerInterceptor 사용
+		//濡쒓렇�씤 �뿬遺� �솗�씤 => HandlerInterceptor �궗�슜
 		session.invalidate();
 		return "redirect:main";
 	}
+
 }
